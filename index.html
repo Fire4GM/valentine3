@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Momu 💖</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .container {
+    background: white;
+    width: 90%;
+    max-width: 420px;
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    position: relative;
+  }
+
+  h2 {
+    color: #ff3e6c;
+  }
+
+  img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-bottom: 15px;
+  }
+
+  button {
+    width: 80%;
+    padding: 12px;
+    margin: 10px auto;
+    font-size: 16px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    display: block;
+  }
+
+  .yes {
+    background: #ff3e6c;
+    color: white;
+  }
+
+  .no {
+    background: #eee;
+  }
+
+  .progress {
+    height: 10px;
+    background: #eee;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 15px;
+  }
+
+  .bar {
+    height: 100%;
+    width: 0%;
+    background: #ff3e6c;
+    transition: width 0.5s;
+  }
+
+  .heart {
+    position: fixed;
+    bottom: 0;
+    font-size: 22px;
+    animation: floatUp 4s linear forwards;
+  }
+
+  @keyframes floatUp {
+    to {
+      transform: translateY(-700px);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="progress">
+    <div class="bar" id="bar"></div>
+  </div>
+
+  <img id="qImage" src="https://i.imgur.com/9yG6KpF.jpg">
+
+  <h2 id="question">Momu, kya tumhe surprises pasand hai? 🎁</h2>
+
+  <button class="yes" onclick="yes()">Haan 💕</button>
+  <button class="no" onclick="no()">Nahi 🙃</button>
+</div>
+
+<script>
+let step = 0;
+
+const data = [
+  {
+    q: "Momu, kya tumhe surprises pasand hai? 🎁",
+    img: "img1.jpg"
+  },
+  {
+    q: "Kya tum destiny aur magic mein believe karti ho? ✨",
+    img: "img2.jpg"
+  },
+  {
+    q: "Kya tum Shubham Jain ke saath coffee date pe jaogi? ☕😌",
+    img: "img3.jpg"
+  },
+  {
+    q: "Kya tumhe woh ladka pasand hai jo tumhe ‘Momu’ bulata hai? 😏",
+    img: "img4.jpg"
+  },
+  {
+    q: "Kya tum us ladke ke saath future imagine kar sakti ho? 💭❤️",
+    img: "img5.jpg"
+  },
+  {
+    q: "Last question Momu… 💖 Kya tum meri Valentine banogi?",
+    img: "img6.jpg"
+  }
+];
+
+const noBtn = document.querySelector(".no");
+
+function yes() {
+  step++;
+  updateProgress();
+  createHeart();
+
+  noBtn.innerText = "Nahi 🙃";
+  noBtn.style.transform = "translate(0,0)";
+
+  if (step < data.length) {
+    document.getElementById("question").innerText = data[step].q;
+    document.getElementById("qImage").src = data[step].img;
+  } else {
+    document.querySelector(".container").innerHTML = `
+      <h2>YAYYYYY MOMU!!! 💕</h2>
+      <p>Shubham is the happiest person right now ❤️</p>
+      <p>I love you so much 😘</p>
+    `;
+    for (let i = 0; i < 40; i++) createHeart();
+  }
+}
+
+function no() {
+  noBtn.innerText = "Dobara socho 😜";
+  noBtn.style.transform =
+    `translate(${Math.random()*100 - 50}px, ${Math.random()*60 - 30}px)`;
+}
+
+function updateProgress() {
+  document.getElementById("bar").style.width =
+    (step / data.length) * 100 + "%";
+}
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 4000);
+}
+</script>
+
+</body>
+</html>
